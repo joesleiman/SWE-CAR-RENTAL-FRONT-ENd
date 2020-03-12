@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {LoginComponent} from './component/login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'car-rental-management';
+  public headerTitle: string = 'MIU Car Rental';
+  public loginTitle: string = 'Log in';
+  public loginIcon: string = 'account_circle';
+
+  constructor(public dialog: MatDialog){
+  }
+
+  onOpen(event){
+    const dialogRef = this.dialog.open(LoginComponent, {
+      width: '250px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {LoginComponent} from './component/login/login.component';
+import {LoginComponent} from './components/login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -11,18 +11,23 @@ export class AppComponent {
   public headerTitle: string = 'MIU Car Rental';
   public loginTitle: string = 'Log in';
   public loginIcon: string = 'account_circle';
+  todayDate: Date = new Date();
 
   constructor(public dialog: MatDialog){
   }
 
   onOpen(event){
     const dialogRef = this.dialog.open(LoginComponent, {
-      width: '250px',
+      width: 'inherit',
       data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
 
     });
+  }
+
+  search(event){
+
   }
 }

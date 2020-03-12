@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  emitlogin(){
+  emitLogin(){
       this.openLogin.emit();
   }
 

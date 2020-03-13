@@ -9,6 +9,7 @@ export class CarCardComponent implements OnInit {
   @Input() carImage: string;
   @Input() carRentPricePerDay: number;
   @Input() description: string;
+  @Input() browseUrl: string;
 
   constructor() { }
 

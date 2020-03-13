@@ -1,0 +1,20 @@
+<section class="date-booking-section">
+  <div class="home-title-container">
+    <h1 class="home-title">
+      Way better than a rental car
+    </h1>
+    <p class="description-title">
+      Book unforgettable cars from trusted company around IOWA
+    </p>
+  </div>
+  <div>
+    <app-date-picker [minDate]="todayDate"
+                     (search)="search($event)"></app-date-picker>
+  </div>
+</section>
+<section class="displaying-cars-card">
+  <app-car-card [carImage]="carData.imageUrl"
+                [description]="carData.description"
+                [carRentPricePerDay]="carData.rentPricePerDay"
+                [browseUrl]="carData.browseUrl"></app-car-card>
+</section>

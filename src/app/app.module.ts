@@ -11,6 +11,8 @@ import { HeaderComponent } from './components/header/header.component';
 import {LoginComponent} from './components/login/login.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { CarCardComponent } from './components/car-card/car-card.component';
+import { CustomerComponent } from './pages/customer/customer.component';
+import { HomeComponent } from './pages/home/home.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { CarCardComponent } from './components/car-card/car-card.component';
     LoginComponent,
     HeaderComponent,
     DatePickerComponent,
-    CarCardComponent
+    CarCardComponent,
+    CustomerComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

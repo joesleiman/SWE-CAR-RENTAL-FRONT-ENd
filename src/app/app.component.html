@@ -16,4 +16,9 @@
                      (search)="search($event)"></app-date-picker>
   </div>
 </section>
+<section class="displaying-cars-card">
+  <app-car-card [carImage]="carData.imageUrl"
+                [description]="carData.description"
+                [carRentPricePerDay]="carData.rentPricePerDay"></app-car-card>
+</section>
 <router-outlet></router-outlet>

@@ -13,6 +13,10 @@ import { DatePickerComponent } from './components/date-picker/date-picker.compon
 import { CarCardComponent } from './components/car-card/car-card.component';
 import { CustomerComponent } from './pages/customer/customer.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ListCarsComponent } from './pages/list-cars/list-cars.component';
+import { AddCarComponent } from './pages/add-car/add-car.component';
+import { AddUserComponent } from './pages/add-user/add-user.component';
+import { PaymentComponent } from './pages/payment/payment.component';
 
 
 @NgModule({
@@ -23,7 +27,11 @@ import { HomeComponent } from './pages/home/home.component';
     DatePickerComponent,
     CarCardComponent,
     CustomerComponent,
-    HomeComponent
+    HomeComponent,
+    ListCarsComponent,
+    AddCarComponent,
+    AddUserComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,

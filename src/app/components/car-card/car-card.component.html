@@ -6,9 +6,15 @@
         {{description}}
       </p>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>{{carRentPricePerDay}}$/day</button>
-      <button mat-button [routerLink]="[browseUrl]">Book</button>
+    <mat-card-actions fxLayout fxLayoutAlign="space-between center">
+      <div>
+        <button mat-button>{{carRentPricePerDay}}$/day</button>
+        <button mat-button [routerLink]="[browseUrl]">Book</button>
+      </div>
+      <div>
+        <button mat-icon-button [routerLink]="['/add-car']"><mat-icon >edit</mat-icon></button>
+        <button mat-icon-button ><mat-icon >delete</mat-icon></button>
+      </div>
     </mat-card-actions>
   </mat-card>
   <mat-card class="car-card">
@@ -18,9 +24,15 @@
         {{description}}
       </p>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>{{carRentPricePerDay}}$/day</button>
-      <button mat-button [routerLink]="[browseUrl]">Book</button>
+    <mat-card-actions fxLayout fxLayoutAlign="space-between center">
+      <div>
+        <button mat-button>{{carRentPricePerDay}}$/day</button>
+        <button mat-button [routerLink]="[browseUrl]">Book</button>
+      </div>
+      <div>
+        <button mat-icon-button ><mat-icon [routerLink]="['/add-car']">edit</mat-icon></button>
+        <button mat-icon-button ><mat-icon >delete</mat-icon></button>
+      </div>
     </mat-card-actions>
   </mat-card>
   <mat-card class="car-card">
@@ -30,9 +42,15 @@
         {{description}}
       </p>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>{{carRentPricePerDay}}$/day</button>
-      <button mat-button [routerLink]="[browseUrl]">Book</button>
+    <mat-card-actions fxLayout fxLayoutAlign="space-between center">
+      <div>
+        <button mat-button>{{carRentPricePerDay}}$/day</button>
+        <button mat-button [routerLink]="[browseUrl]">Book</button>
+      </div>
+      <div>
+        <button mat-icon-button [routerLink]="['/add-car']"><mat-icon >edit</mat-icon></button>
+        <button mat-icon-button ><mat-icon >delete</mat-icon></button>
+      </div>
     </mat-card-actions>
   </mat-card>
   <mat-card class="car-card">
@@ -42,9 +60,15 @@
         {{description}}
       </p>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>{{carRentPricePerDay}}$/day</button>
-      <button mat-button [routerLink]="[browseUrl]">Book</button>
+    <mat-card-actions fxLayout fxLayoutAlign="space-between center">
+      <div>
+        <button mat-button>{{carRentPricePerDay}}$/day</button>
+        <button mat-button [routerLink]="[browseUrl]">Book</button>
+      </div>
+      <div>
+        <button mat-icon-button [routerLink]="['/add-car']"><mat-icon >edit</mat-icon></button>
+        <button mat-icon-button ><mat-icon >delete</mat-icon></button>
+      </div>
     </mat-card-actions>
   </mat-card>
 </div>

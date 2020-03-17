@@ -1,0 +1,13 @@
+<div class="list-cars-page">
+  <div class="add-button-container">
+    <button mat-raised-button [routerLink]="['/add-car']">
+      Add Car
+    </button>
+  </div>
+
+  <app-car-card [carImage]="carData.imageUrl"
+                [description]="carData.description"
+                [carRentPricePerDay]="carData.rentPricePerDay"
+                [browseUrl]="carData.browseUrl"></app-car-card>
+</div>
+

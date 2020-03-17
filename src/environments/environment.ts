@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  TOKEN_WHITELIST_DOMAINS: [],
+  //Don't forget to add to whitelist
+  API_ENDPOINT: 'http://',
+  ASSETS_BASE: '/assets',
+  HOST: '',
+  LOGIN: '/token'
 };
 
 /*

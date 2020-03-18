@@ -4,7 +4,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { StateOfUSA } from '../../enum/states-of-usa.enumeration';
 import {CustomerService} from "../../services/customer.service";
 import {PaymentService} from "../../services/payment.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-booking',
@@ -37,14 +37,20 @@ export class BookingComponent implements OnInit {
       customerId: null
     }
   };
-
+  carData = {};
   constructor(private _formBuilder: FormBuilder,
               private _customerService: CustomerService,
               private _paymentService: PaymentService,
-              private _router: Router) {
+              private _router: Router,
+              private _route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this._route.paramMap.subscribe(params => {
+      this.carData = params.get('car');
+      this._bookingData.car.cardId = this.carData['carId'];
+      this._bookingData.totalPrice = this.carData['differenceInDays'] * this.carData['pricePerDay'];
+    });
     this.customerFormGroup = this._formBuilder.group({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
@@ -115,7 +121,7 @@ export class BookingComponent implements OnInit {
             .subscribe(
               (bookingSuccessData: any) => {
                 //redirect him to booking success page
-                this._router.navigate(['/booking-success']);
+                this._router.navigate(['/booking-success', bookingSuccessData.bookingId]);
               }
             );
         }

@@ -13,12 +13,12 @@ import {BookingSuccessComponent} from "./pages/booking-success/booking-success.c
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'customer', component: CustomerComponent },
-  { path: 'list-cars/:availableCars', component: ListCarsComponent },
+  { path: 'list-cars/:availableCars/:numberRentDays', component: ListCarsComponent },
   { path: 'add-car', component: AddCarComponent },
   { path: 'add-user', component: AddUserComponent },
   { path: 'payment', component: PaymentComponent },
-  { path: 'booking', component: BookingComponent },
-  { path: 'booking-success', component: BookingSuccessComponent },
+  { path: 'booking/:car', component: BookingComponent },
+  { path: 'booking-success/:bookingId', component: BookingSuccessComponent },
 ];
 
 @NgModule({

@@ -13,8 +13,10 @@
   </div>
 </section>
 <section class="displaying-cars-card">
-  <app-car-card [carImage]="carData.imageUrl"
-                [description]="carData.description"
-                [carRentPricePerDay]="carData.rentPricePerDay"
-                [browseUrl]="carData.browseUrl"></app-car-card>
+  <app-car-card *ngFor="let car of carsData"
+                [model]="car['model']"
+                [year]="car['year']"
+                [carImage]="carData.imageUrl"
+                [carRentPricePerDay]="car['pricePerDay']"
+                (book)="goToCustomer($event)"></app-car-card>
 </section>

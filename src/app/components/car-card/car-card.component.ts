@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-car-card',
@@ -8,12 +8,18 @@ import {Component, Input, OnInit} from '@angular/core';
 export class CarCardComponent implements OnInit {
   @Input() carImage: string;
   @Input() carRentPricePerDay: number;
-  @Input() description: string;
-  @Input() browseUrl: string;
+  @Input() model: string;
+  @Input() year: string;
+  @Input() carObject: any;
+  @Output() book: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onBook(carObject: any){
+    this.book.emit(carObject);
   }
 
 }

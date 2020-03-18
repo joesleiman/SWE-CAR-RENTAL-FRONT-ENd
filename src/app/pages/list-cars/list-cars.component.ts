@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-cars',
@@ -9,20 +9,22 @@ import { ActivatedRoute } from '@angular/router';
 export class ListCarsComponent implements OnInit {
   carData = {
     imageUrl: '../../../assets/images/mercedes.jpeg',
-    description: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small,' +
-      ' agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.',
-    rentPricePerDay: 75,
-    browseUrl: '/customer'
   };
   public carsData: any = [];
+  public differenceInDays;
 
-  constructor(private _route: ActivatedRoute,) { }
+  constructor(private _route: ActivatedRoute,
+              private _router: Router) { }
 
   ngOnInit(): void {
     this._route.paramMap.subscribe(params => {
       this.carsData = params.get('availableCars');
+      this.differenceInDays = params.get('numberRentDays');
+      this.carsData.differenceInDays = this.differenceInDays;
     });
   }
-
+  goToCustomer(event){
+    this._router.navigate(['/booking', event]);
+  }
 
 }

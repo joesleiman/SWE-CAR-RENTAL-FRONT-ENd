@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import {CarService} from "../../services/car.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -9,19 +9,20 @@ import { Router } from "@angular/router";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  todayDate: Date = new Date();
   carData = {
     imageUrl: '../../../assets/images/mercedes.jpeg',
-    description: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small,' +
-      ' agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.',
-    rentPricePerDay: 75,
-    browseUrl: '/booking'
   };
+  public carsData: any = [];
+  todayDate: Date = new Date();
 
   constructor(private _carService: CarService,
-              private _router: Router) { }
+              private _router: Router,
+              private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this._route.paramMap.subscribe(params => {
+      this.carsData = params.get('availableCars');
+    });
   }
 
   search(event){
@@ -29,11 +30,19 @@ export class HomeComponent implements OnInit {
     const endDate = new Date(event.endDate);
     const startFormattedDate = moment(startDate).format("YYYY/MM/DD");
     const endFormattedDate = moment(endDate).format("YYYY/MM/DD");
+    let differenceInTime = startDate.getTime() - endDate.getTime();
+    // To calculate the no. of days between two dates
+    let differenceInDays = differenceInTime / (1000 * 3600 * 24);
+
     this._carService.getAvailableCarsOnDate(startFormattedDate, endFormattedDate)
       .subscribe(
-        (availableCars: any)=>{
-          this._router.navigate(['/list-cars', availableCars]);
+        (cars: any)=>{
+          this._router.navigate(['/list-cars', {availableCars: cars, numberRentDays: differenceInDays}]);
         }
       );
+  }
+
+  goToCustomer(event){
+    this._router.navigate(['/booking', event]);
   }
 }

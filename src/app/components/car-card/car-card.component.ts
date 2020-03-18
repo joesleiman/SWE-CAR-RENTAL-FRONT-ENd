@@ -10,7 +10,6 @@ export class CarCardComponent implements OnInit {
   @Input() carRentPricePerDay: number;
   @Input() model: string;
   @Input() year: string;
-  @Input() carObject: any;
   @Output() book: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
@@ -18,8 +17,8 @@ export class CarCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onBook(carObject: any){
-    this.book.emit(carObject);
+  onBook(){
+    this.book.emit();
   }
 
 }

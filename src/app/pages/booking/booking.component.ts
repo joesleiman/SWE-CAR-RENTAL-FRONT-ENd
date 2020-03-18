@@ -5,6 +5,8 @@ import { StateOfUSA } from '../../enum/states-of-usa.enumeration';
 import {CustomerService} from "../../services/customer.service";
 import {PaymentService} from "../../services/payment.service";
 import { Router, ActivatedRoute } from "@angular/router";
+import {CarService} from "../../services/car.service";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-booking',
@@ -18,14 +20,14 @@ export class BookingComponent implements OnInit {
   isLinear = true;
   public StateOfUSA = StateOfUSA;
   private _bookingData = {
-    referenceNumber: null,
-    bookingDate: new Date(),
+    referenceNumber: 'null',
+    bookingDate: moment(new Date()).format("YYYY-MM-DD"),
     startDate: null,
     endDate: null,
     totalPrice: 0,
-    bookingStatus: null,
+    bookingStatus: 'PENDING',
     car: {
-      cardId: 0
+      carId: ''
     },
     payment: {
       paymentId: null,
@@ -38,19 +40,32 @@ export class BookingComponent implements OnInit {
     }
   };
   carData = {};
+
   constructor(private _formBuilder: FormBuilder,
               private _customerService: CustomerService,
               private _paymentService: PaymentService,
               private _router: Router,
-              private _route: ActivatedRoute) {
+              private _route: ActivatedRoute,
+              private _carService: CarService) {
   }
 
   ngOnInit(): void {
+    this.initForms();
     this._route.paramMap.subscribe(params => {
-      this.carData = params.get('car');
-      this._bookingData.car.cardId = this.carData['carId'];
-      this._bookingData.totalPrice = this.carData['differenceInDays'] * this.carData['pricePerDay'];
+      this._bookingData.car.carId = params.get('carId');
+      this._bookingData.startDate = params.get('startFormattedDate');
+      this._bookingData.endDate = params.get('endFormattedDate');
+      this._carService.getCarById(this._bookingData.car.carId)
+        .subscribe(
+          (carData) => {
+            this._bookingData.totalPrice = Number(params.get('numberRentDays')) * carData['pricePerDay'];
+            this.paymentFormGroup.controls['totalPrice'].setValue(this._bookingData.totalPrice);
+          }
+        );
     });
+  }
+
+  initForms(){
     this.customerFormGroup = this._formBuilder.group({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
@@ -61,20 +76,22 @@ export class BookingComponent implements OnInit {
     this.addressFormGroup = this._formBuilder.group({
       streetLine: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
-      zipcode: new FormControl('', Validators.required),
-      country: new FormControl({value: '0', disabled: true}, Validators.required),
+      zipCode: new FormControl('', Validators.required),
+      country: new FormControl( 'USA', Validators.required),
       state: new FormControl('', Validators.required)
     });
 
     this.paymentFormGroup = this._formBuilder.group({
-      paymentDate: new FormControl(new Date(), Validators.required),
+      paymentDate: new FormControl(moment(new Date()).format("YYYY-MM-DD"), Validators.required),
       cardNumber: new FormControl('', Validators.required),
       cardCVV: new FormControl('', Validators.required),
-      totalPrice: new FormControl({value: this._bookingData.totalPrice, disabled: true}, Validators.required),
-      paymentStatus: new FormControl({value: '', disabled: true}, Validators.required),
+      totalPrice: new FormControl({value: '', disabled: true}, Validators.required),
+      paymentStatus: new FormControl({value: '', disabled: true}),
+      billingAddress: this._formBuilder.group({
+        addressId: new FormControl('')
+      })
     });
   }
-
   next(stepper: MatStepper){
     stepper.next();
   }
@@ -94,6 +111,7 @@ export class BookingComponent implements OnInit {
   }
 
   nextTo3(stepper: MatStepper){
+    this.addressFormGroup.value.zipCode =  Number(this.addressFormGroup.value.zipCode);
     this._paymentService.postAddress(this.addressFormGroup.value)
       .subscribe(
         (address: any) => {
@@ -111,22 +129,23 @@ export class BookingComponent implements OnInit {
     this.previous(stepper);
   }
 
-  done(){
-    this.paymentFormGroup.value.billingAddress.addressId = this._bookingData.payment.billingAddress.addressId;
+  done() {
+    this.paymentFormGroup.value.cardNumber = Number(this.paymentFormGroup.value.cardNumber);
+    this.paymentFormGroup.value.cardCVV = Number(this.paymentFormGroup.value.cardCVV);
+    // this.paymentFormGroup.value.totalPrice = this._bookingData.totalPrice;
+    this.paymentFormGroup.value.paymentStatus = 'PENDING';
+    this.paymentFormGroup.value.billingAddress.addressId =  this._bookingData.payment.billingAddress.addressId;
     this._paymentService.postPayment(this.paymentFormGroup.value)
       .subscribe(
         (payment: any) => {
-          this._bookingData.payment.paymentId = payment.paymentId
+          this._bookingData.payment.paymentId = payment.paymentId;
           this._paymentService.bookCar(this._bookingData)
             .subscribe(
               (bookingSuccessData: any) => {
-                //redirect him to booking success page
-                this._router.navigate(['/booking-success', bookingSuccessData.bookingId]);
+                this._router.navigate(['/booking-success', bookingSuccessData.referenceNumber]);
               }
             );
         }
       );
   }
-
-
 }

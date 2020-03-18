@@ -2,12 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from "../../environments/environment";
 
-// const httpOptions = {
-//   headers: new HttpHeaders({
-//     'Content-Type':  'application/json',
-//     'Access-Control-Allow-Origin' : '*'
-//   })
-// };
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +22,9 @@ export class CarService {
       .set('start', startDate)
       .set('end', endDate);
     return this._http.get(environment.API_ENDPOINT  + 'check_availiable_cars',{params});
+  }
+
+  getCarById(carId: any){
+    return this._http.get(environment.API_ENDPOINT  + 'cars/' + carId);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import {CarService} from "../../services/car.service";
 
 @Component({
   selector: 'app-list-cars',
@@ -12,19 +13,28 @@ export class ListCarsComponent implements OnInit {
   };
   public carsData: any = [];
   public differenceInDays;
+  public startDate;
+  public endDate;
 
   constructor(private _route: ActivatedRoute,
-              private _router: Router) { }
+              private _router: Router,
+              private _carService: CarService) { }
 
   ngOnInit(): void {
     this._route.paramMap.subscribe(params => {
-      this.carsData = params.get('availableCars');
+      this.startDate= params.get('startFormattedDate');
+      this.endDate = params.get('endFormattedDate');
       this.differenceInDays = params.get('numberRentDays');
-      this.carsData.differenceInDays = this.differenceInDays;
+      this._carService.getAvailableCarsOnDate(this.startDate, this.endDate)
+        .subscribe(
+          (cars: any) => {
+            this.carsData = cars;
+          }
+        );
     });
   }
-  goToCustomer(event){
-    this._router.navigate(['/booking', event]);
+  goToCustomer(carId: any){
+    this._router.navigate(['/booking', carId,  this.differenceInDays, this.startDate, this.endDate]);
   }
 
 }

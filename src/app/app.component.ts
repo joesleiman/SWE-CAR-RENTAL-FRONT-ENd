@@ -19,7 +19,7 @@ export class AppComponent {
   }
 
   ngOnInit(){
-    // this.getCars();
+
   }
 
 
@@ -34,10 +34,4 @@ export class AppComponent {
     });
   }
 
-  getCars(){
-    this._carService.getCars()
-      .subscribe((cars)=>{
-        console.log(cars);
-      });
-  }
 }

@@ -45,7 +45,7 @@
           <mat-form-field appearance="outline" fxFlex="50%">
             <mat-label class="star-required">Country</mat-label>
             <mat-select formControlName="country" >
-              <mat-option  value="0">USA</mat-option>
+              <mat-option  value="USA">USA</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field appearance="outline" fxFlex="50%">
@@ -70,7 +70,7 @@
         <div fxLayout class="full-width" fxLayoutGap="20px">
           <mat-form-field appearance="outline" fxFlex="50%">
             <mat-label class="star-required">Zipcode</mat-label>
-            <input matInput placeholder="Zipcode" formControlName="zipcode">
+            <input matInput placeholder="Zipcode" formControlName="zipCode">
           </mat-form-field>
         </div>
 
@@ -112,12 +112,14 @@
             <mat-label class="star-required">Total Price</mat-label>
             <input matInput placeholder="Total Price" formControlName="totalPrice" >
           </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="50%">
-            <mat-label class="star-required">Payment Status</mat-label>
-            <input matInput placeholder="Payment Status" formControlName="paymentStatus" >
-          </mat-form-field>
+<!--          <mat-form-field appearance="outline" fxFlex="50%">-->
+<!--            <mat-label class="star-required">Payment Status</mat-label>-->
+<!--            <input matInput placeholder="Payment Status" formControlName="paymentStatus" >-->
+<!--          </mat-form-field>-->
         </div>
+        <form [formGroup]="paymentFormGroup.controls['billingAddress']" fxHide>
 
+        </form>
         <div fxLayout fxLayoutAlign="end start" class="booking-btn">
           <button mat-raised-button
                   fxLayout fxFlex="50%"

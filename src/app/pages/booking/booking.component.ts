@@ -70,7 +70,7 @@ export class BookingComponent implements OnInit {
       paymentDate: new FormControl(new Date(), Validators.required),
       cardNumber: new FormControl('', Validators.required),
       cardCVV: new FormControl('', Validators.required),
-      totalPrice: new FormControl({value: '', disabled: true}, Validators.required),
+      totalPrice: new FormControl({value: this._bookingData.totalPrice, disabled: true}, Validators.required),
       paymentStatus: new FormControl({value: '', disabled: true}, Validators.required),
     });
   }

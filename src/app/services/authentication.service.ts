@@ -20,7 +20,7 @@ export class AuthenticationService {
   public login(credentials: Credentials){
     return this._http
       .post(
-        environment.API_ENDPOINT + 'login',
+        environment.API_ENDPOINT + 'public/login/users',
         {
           ...credentials
         },

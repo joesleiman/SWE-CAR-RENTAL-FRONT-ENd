@@ -5,7 +5,8 @@ import {SharedMaterialModule} from './shared-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -21,7 +22,22 @@ import { PaymentComponent } from './pages/payment/payment.component';
 import { AdminEmployeeComponent } from './pages/admin-employee/admin-employee.component';
 import { BookingComponent } from './pages/booking/booking.component';
 import { BookingSuccessComponent } from './pages/booking-success/booking-success.component';
+import {TokenService} from "./services/token.service";
+import {first} from "rxjs/operators";
+import {environment} from "../environments/environment";
+import { CancelBookingComponent } from './pages/cancel-booking/cancel-booking.component';
 
+export function jwtOptionsFactory(tokenService: TokenService): any {
+  return {
+    tokenGetter: () => {
+      return tokenService.token$
+        .pipe(first())
+        .toPromise();
+    },
+    whitelistedDomains: environment.TOKEN_WHITELIST_DOMAINS,
+    skipWhenExpired: false
+  };
+}
 
 @NgModule({
   declarations: [
@@ -38,7 +54,8 @@ import { BookingSuccessComponent } from './pages/booking-success/booking-success
     PaymentComponent,
     AdminEmployeeComponent,
     BookingComponent,
-    BookingSuccessComponent
+    BookingSuccessComponent,
+    CancelBookingComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +64,14 @@ import { BookingSuccessComponent } from './pages/booking-success/booking-success
     SharedMaterialModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionsFactory,
+        deps: [TokenService]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

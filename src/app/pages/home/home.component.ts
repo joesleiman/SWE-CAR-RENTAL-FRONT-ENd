@@ -26,4 +26,8 @@ export class HomeComponent implements OnInit {
     let differenceInDays = differenceInTime / (1000 * 3600 * 24);
     this._router.navigate(['/list-cars', startFormattedDate, endFormattedDate, differenceInDays]);
   }
+
+  goToCancelBooking(){
+    this._router.navigate(['/cancel-booking']);
+  }
 }

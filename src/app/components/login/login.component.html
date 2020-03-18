@@ -19,6 +19,6 @@
     </mat-form-field>
   </div>
   <div class="login-button-container">
-    <button mat-raised-button [disabled]="!loginForm.valid">Login</button>
+    <button mat-raised-button (click)="login()" [disabled]="!loginForm.valid">Login</button>
   </div>
 </form>

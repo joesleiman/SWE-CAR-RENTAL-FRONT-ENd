@@ -6,15 +6,19 @@ import {ListCarsComponent} from './pages/list-cars/list-cars.component';
 import {AddCarComponent} from './pages/add-car/add-car.component';
 import {AddUserComponent} from './pages/add-user/add-user.component';
 import {PaymentComponent} from './pages/payment/payment.component';
+import {BookingComponent} from "./pages/booking/booking.component";
+import {BookingSuccessComponent} from "./pages/booking-success/booking-success.component";
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'customer', component: CustomerComponent },
-  { path: 'list-cars', component: ListCarsComponent },
+  { path: 'list-cars/:availableCars', component: ListCarsComponent },
   { path: 'add-car', component: AddCarComponent },
   { path: 'add-user', component: AddUserComponent },
   { path: 'payment', component: PaymentComponent },
+  { path: 'booking', component: BookingComponent },
+  { path: 'booking-success', component: BookingSuccessComponent },
 ];
 
 @NgModule({

@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-date-picker',
@@ -8,14 +9,19 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class DatePickerComponent implements OnInit {
   @Input() minDate: string;
   @Output() search: EventEmitter<any> = new EventEmitter();
+  startEndDateFormGroup: FormGroup;
 
-  constructor() { }
+  constructor(private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.startEndDateFormGroup = this._formBuilder.group({
+      startDate: new FormControl('', Validators.required),
+      endDate: new FormControl('', Validators.required)
+    });
   }
 
-  emitSearch(){
-    this.search.emit();
+  emitSearch(startEndDateValues: any){
+    this.search.emit(startEndDateValues);
   }
 
 }

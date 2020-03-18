@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {LoginComponent} from './components/login/login.component';
+import {CarService} from "./services/car.service";
 
 @Component({
   selector: 'app-root',
@@ -13,8 +14,14 @@ export class AppComponent {
   public loginIcon: string = 'account_circle';
 
 
-  constructor(public dialog: MatDialog){
+  constructor(public dialog: MatDialog,
+              private _carService: CarService){
   }
+
+  ngOnInit(){
+    // this.getCars();
+  }
+
 
   onOpen(event){
     const dialogRef = this.dialog.open(LoginComponent, {
@@ -27,4 +34,10 @@ export class AppComponent {
     });
   }
 
+  getCars(){
+    this._carService.getCars()
+      .subscribe((cars)=>{
+        console.log(cars);
+      });
+  }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-cars',
@@ -13,10 +14,15 @@ export class ListCarsComponent implements OnInit {
     rentPricePerDay: 75,
     browseUrl: '/customer'
   };
+  public carsData: any = [];
 
-  constructor() { }
+  constructor(private _route: ActivatedRoute,) { }
 
   ngOnInit(): void {
+    this._route.paramMap.subscribe(params => {
+      this.carsData = params.get('availableCars');
+    });
   }
+
 
 }

@@ -10,6 +10,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   exports: [
@@ -23,7 +24,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatNativeDateModule,
     MatCardModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatStepperModule
   ]
 })
 export class SharedMaterialModule { }
